@@ -12,6 +12,10 @@ var certificate = fs.readFileSync(process.env.TLSCERT, 'utf8');
 var credentials = {key: privateKey, cert: certificate};
 var forceSsl = require('express-force-ssl');
 
+const db = require("./middleware/db");
+
+const users = require("./handlers/users");
+
 const app = express();
 
 // Forces a secure connection
@@ -25,7 +29,7 @@ app.use(multer().none());
 
 // Establish a connection with the database and pass the connection 
 // along in the request object
-// app.use(db.getDB);
+app.use(db.getDB);
 
 // ----- API Routes -----
 
@@ -35,7 +39,10 @@ async function handleHome(req, res) {
   res.status(200).send("I heard you bruh.");
 }
 
-app.use(handleHome);
+app.get("/", handleHome);
+
+// Handle creating a new user
+app.post("/users", users.createNewUser);
 
 http.createServer(app).listen(80);
 https.createServer(credentials, app).listen(443);
