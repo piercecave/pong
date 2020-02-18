@@ -10,6 +10,13 @@ export class GameElement {
     }
 }
 
+export class Button {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
 export class Square extends GameElement {
     constructor(x, y, xVel, yVel, color, w, h) {
         super(x, y, xVel, yVel, color);
@@ -76,7 +83,7 @@ export class PauseButton {
     }
 
     draw(context) {
-        context.globalAlpha = 0.3;
+        context.globalAlpha = 0.5;
         context.fillStyle = this.color;
         context.fillRect(this.x, this.y, 8, 30);
         context.fillRect(this.x + 15, this.y, 8, 30);

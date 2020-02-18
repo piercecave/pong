@@ -8,6 +8,14 @@ export const onMouseDown = (e, gameCanvas, userPaddle, pauseButton) => {
     pauseButton.toggleClick();
 }
 
+export const onMouseClick = (e, gameCanvas, userPaddle, pauseButton) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    userPaddle.x = getMousePos(gameCanvas, e).x - (userPaddle.width / 2);
+    pauseButton.toggleClick();
+}
+
 export const onMouseMove = (e, gameCanvas, userPaddle) => {
     e.preventDefault();
     e.stopPropagation();
