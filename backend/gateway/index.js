@@ -23,6 +23,7 @@ var forceSsl = require('express-force-ssl');
 
 const db = require("./middleware/db");
 const { checkIsLoggedIn } = require("./middleware/auth");
+const { addCORSResponseHeaders } = require("./middleware/cors");
 
 const users = require("./handlers/users");
 const sessions = require("./handlers/sessions");
@@ -50,6 +51,9 @@ app.use(session({
 // Establish a connection with the database and pass the connection 
 // along in the request object
 app.use(db.getDB);
+
+// Add CORS headers for browsers
+app.use(addCORSResponseHeaders);
 
 // ----- API Routes -----
 
